@@ -21,23 +21,40 @@
     </div>
 
     <script>
-        function sendData() {
-            const input = document.getElementById('noteInput').value;
-            const status = document.getElementById('status');
-            
-            if(!input) {
-                alert("Please type something first!");
-                return;
-            }
+        async function sendData() {
+    const input = document.getElementById('noteInput').value;
+    const status = document.getElementById('status');
+    
+    if(!input) {
+        alert("Please type something first!");
+        return;
+    }
 
-            status.innerText = "Processing...";
-            // This is where we will put our Cloud URL once Azure/AWS is ready!
-            console.log("Saving: " + input);
-            
-            setTimeout(() => {
-                status.innerText = "Connected! (Waiting for Cloud API)";
-            }, 1000);
+    status.innerText = "🚀 Sending to Cloud...";
+    status.style.color = "blue";
+
+    try {
+        const response = await fetch('https://cc-miniproject-lcfy.onrender.com/add-note', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ content: input })
+        });
+
+        if (response.ok) {
+            status.innerText = "✅ Successfully saved to MongoDB!";
+            status.style.color = "green";
+            document.getElementById('noteInput').value = ""; // Clear the box
+        } else {
+            status.innerText = "❌ Server error. Check Render logs.";
+            status.style.color = "red";
         }
-    </script>
+    } catch (error) {
+        console.error("Error:", error);
+        status.innerText = "⚠️ Connection Failed! (Check MongoDB IP Whitelist)";
+        status.style.color = "red";
+    }
+}
 </body>
 </html>
