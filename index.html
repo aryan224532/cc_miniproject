@@ -39,13 +39,14 @@
                     headers: {
                         'Content-Type': 'application/json',
                     },
-                    body: JSON.stringify({ content: input })
+                    // We changed 'content' to 'text' below to match your server.js!
+                    body: JSON.stringify({ text: input }) 
                 });
 
                 if (response.ok) {
                     status.innerText = "✅ Successfully saved to MongoDB!";
                     status.style.color = "green";
-                    document.getElementById('noteInput').value = ""; // Clear the box
+                    document.getElementById('noteInput').value = ""; 
                 } else {
                     status.innerText = "❌ Server error. Check Render logs.";
                     status.style.color = "red";
@@ -56,5 +57,6 @@
                 status.style.color = "red";
             }
         }
-    </script> </body>
+    </script>
+</body>
 </html>
