@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>My Cloud Web App</title>
+    <style>
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; text-align: center; background-color: #f4f4f9; }
+        .container { margin-top: 100px; padding: 20px; background: white; display: inline-block; border-radius: 10px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); }
+        input { padding: 10px; border: 1px solid #ddd; border-radius: 5px; width: 250px; }
+        button { padding: 10px 20px; background-color: #2ea44f; color: white; border: none; border-radius: 5px; cursor: pointer; }
+        button:hover { background-color: #2c974b; }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Cloud Note Taker</h1>
+        <p>Status: <span id="status">Ready</span></p>
+        <input type="text" id="noteInput" placeholder="Write something...">
+        <button onclick="sendData()">Save to Cloud</button>
+    </div>
+
+    <script>
+        function sendData() {
+            const input = document.getElementById('noteInput').value;
+            const status = document.getElementById('status');
+            
+            if(!input) {
+                alert("Please type something first!");
+                return;
+            }
+
+            status.innerText = "Processing...";
+            // This is where we will put our Cloud URL once Azure/AWS is ready!
+            console.log("Saving: " + input);
+            
+            setTimeout(() => {
+                status.innerText = "Connected! (Waiting for Cloud API)";
+            }, 1000);
+        }
+    </script>
+</body>
+</html>
